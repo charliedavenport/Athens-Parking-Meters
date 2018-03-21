@@ -557,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 164723228}
   m_Layer: 0
-  m_Name: pivot_1
+  m_Name: Top-Down
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2194,6 +2194,8 @@ MonoBehaviour:
   nodeMat: {fileID: 2100000, guid: 21e0d56999ac56e40a380edc3524bbf8, type: 2}
   selectedNodeMat: {fileID: 2100000, guid: 6b1cf2acfb9ef0a429c9b8097ffe8cf8, type: 2}
   NodesObj: {fileID: 557815}
+  gui: {fileID: 1799875407}
+  walkBtn: {fileID: 1716553754}
   CurrentPath: []
 --- !u!4 &1225768482
 Transform:
@@ -2316,7 +2318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1295942990}
   m_Layer: 0
-  m_Name: pivot_0
+  m_Name: Birds Eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2952,9 +2954,9 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.7794118, g: 0.7851428, b: 0.7851428, a: 0.503}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0.06
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}

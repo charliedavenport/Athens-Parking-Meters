@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GraphManager : MonoBehaviour {
 
@@ -20,15 +21,24 @@ public class GraphManager : MonoBehaviour {
     private Transform cube;
     [SerializeField]
     private Transform NodesObj;
+    [SerializeField]
+    private Canvas gui;
+    [SerializeField]
+    private Button walkBtn;
     private List<Transform> Nodes;
     private List<Transform> Edges;
 
     public List<Transform> CurrentPath;
 
+    private bool walking;
+
     private void Awake() {
         Nodes = new List<Transform>();
         Edges = new List<Transform>();
         CurrentPath = new List<Transform>();
+
+        walking = false;
+        walkBtn.interactable = false;
 
         /*
         for (int x=0; x<5; x++) {
@@ -83,7 +93,7 @@ public class GraphManager : MonoBehaviour {
     }
 	
     public void walkPath() {
-        StartCoroutine(walk_path());
+        if (!walking) StartCoroutine(walk_path());
     }
 
     public void resetPath() {
@@ -93,9 +103,12 @@ public class GraphManager : MonoBehaviour {
         }
         Destroy(cube.gameObject);
         CurrentPath = new List<Transform>();
+        walkBtn.interactable = false;
     }
     
     IEnumerator walk_path() {
+        walking = true;
+        walkBtn.interactable = false;
         Vector3 cubeOffset = Vector3.up * .5f;
         cube.position = CurrentPath[0].position + cubeOffset;
         for (int i=1; i<CurrentPath.Count; i++) {
@@ -108,6 +121,8 @@ public class GraphManager : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.5f);
         }
+        walking = false;
+        walkBtn.interactable = true;
     }
 
     public void loadPathFromFile() {
@@ -125,6 +140,16 @@ public class GraphManager : MonoBehaviour {
             nodeA.GetComponent<Node>().select();
             nodeB.GetComponent<Node>().select();
         }
+        walkBtn.interactable = true;
+    }
+
+    public void addNodeToPath(Transform node) {
+        if (CurrentPath.Count == 0) {
+            // place playercube on this node if it is the first selected
+            InstantiateCube(node.transform);
+            walkBtn.interactable = true;
+        }
+        CurrentPath.Add(node.transform);
     }
 	
 }

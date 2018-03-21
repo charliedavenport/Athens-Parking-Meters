@@ -24,13 +24,8 @@ public class PlayerController : MonoBehaviour {
                 if (hit.collider.gameObject.tag == "Node") {
                     //Debug.Log("hit node...");
                     Transform node = hit.collider.gameObject.transform;
-                    //if (!node.GetComponent<Node>().selected) { // commented out so user can select a node more than once
-                        node.GetComponent<Node>().select();
-                        // place playercube on this node if it is the first selected
-                        if (graph.CurrentPath.Count == 0) {
-                            graph.InstantiateCube(node.transform);
-                        }
-                        graph.CurrentPath.Add(node.transform);
+                    node.GetComponent<Node>().select();
+                    graph.addNodeToPath(node);
                     //}
                 }
             }
