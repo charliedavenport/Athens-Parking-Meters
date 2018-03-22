@@ -99,7 +99,7 @@ public class GraphManager : MonoBehaviour {
     public void resetPath() {
         StopCoroutine(walk_path());
         foreach (Transform node in CurrentPath) {
-            node.GetComponent<Node>().deselect();
+            node.GetComponent<GraphNode>().deselect();
         }
         Destroy(cube.gameObject);
         CurrentPath = new List<Transform>();
@@ -137,8 +137,8 @@ public class GraphManager : MonoBehaviour {
             Transform nodeB = Nodes[int.Parse(line.Substring(2, 1))];
             CurrentPath.Add(nodeA);
             CurrentPath.Add(nodeB);
-            nodeA.GetComponent<Node>().select();
-            nodeB.GetComponent<Node>().select();
+            nodeA.GetComponent<GraphNode>().select();
+            nodeB.GetComponent<GraphNode>().select();
         }
         walkBtn.interactable = true;
     }

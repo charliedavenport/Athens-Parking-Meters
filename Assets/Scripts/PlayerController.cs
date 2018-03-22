@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour {
                 if (hit.collider.gameObject.tag == "Node") {
                     //Debug.Log("hit node...");
                     Transform node = hit.collider.gameObject.transform;
-                    node.GetComponent<Node>().select();
+                    node.GetComponent<GraphNode>().select();
                     graph.addNodeToPath(node);
                     //}
                 }
