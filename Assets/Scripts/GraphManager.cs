@@ -22,6 +22,8 @@ public class GraphManager : MonoBehaviour {
     [SerializeField]
     private Transform NodesObj;
     [SerializeField]
+    private Transform EdgesObj;
+    [SerializeField]
     private Canvas gui;
     [SerializeField]
     private Button walkBtn;
@@ -66,10 +68,17 @@ public class GraphManager : MonoBehaviour {
 
     private void Start() {
         //StartCoroutine(delayed_walk());
+        loadAdjacencyList();
     }
 
     public void InstantiateCube(Transform startNode) {
         cube = Instantiate(cubePrefab, startNode.position + Vector3.up * 0.5f, Quaternion.identity);
+    }
+
+    private void InstantiateEdge(int A, int B) {
+        Transform newEdge = Instantiate(edgePrefab, Vector3.zero, Quaternion.identity);
+        newEdge.GetComponent<Edge>().setNodes(Nodes[A], Nodes[B], 2);
+        newEdge.SetParent(EdgesObj);
     }
 
     // not used anymore - was in initial prototype
@@ -142,6 +151,34 @@ public class GraphManager : MonoBehaviour {
         }
         walkBtn.interactable = true;
     }
+
+    private void loadAdjacencyList() {
+        /*  formatting of Adjacency_List.csv follows this pattern:
+         *  
+         *  1,,,
+         *  0,7,2,
+         *  1,8,3,
+         */
+        string filePath = Directory.GetCurrentDirectory() 
+                                + @"\Assets\Scripts" // maybe should move to different folder
+                                + @"\Adjacency_List.csv";
+        string content = System.IO.File.ReadAllText(filePath);
+        string[] lines = content.Split('\n');
+        // parsing loop
+        int node_A = 0; // node index
+        foreach (string line in lines) {
+            string[] words = line.Split(',');
+            foreach (string word in words) {
+                int node_B;
+                if (int.TryParse(word, out node_B)) {
+                    InstantiateEdge(node_A, node_B);
+                }
+            }
+            ++node_A;
+        }
+    }
+
+    
 
     public void addNodeToPath(Transform node) {
         if (CurrentPath.Count == 0) {

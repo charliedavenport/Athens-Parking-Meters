@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour {
 
     [SerializeField]
     private Transform pivots_gameobj;
+    [SerializeField]
+    private GUIController gui;
     //[SerializeField]
     private List<Transform> cameraPivots;
     private int currentPivot_ind;
@@ -14,7 +16,7 @@ public class CameraController : MonoBehaviour {
 
     // initialize
     private void Awake() {
-
+        
         cameraPivots = new List<Transform>();
         currentPivot_ind = 0;
         // get the transforms of all children under this gameObject
@@ -24,6 +26,8 @@ public class CameraController : MonoBehaviour {
         currentPivot = cameraPivots[currentPivot_ind];
         this.transform.position = currentPivot.position;
         this.transform.rotation = currentPivot.rotation;
+
+        gui.setCurrentCameraView(currentPivot.gameObject.name);
     }
 
     // call this from other scripts to change camera view
@@ -34,6 +38,8 @@ public class CameraController : MonoBehaviour {
             Transform nextPivot = cameraPivots[currentPivot_ind];
             StartCoroutine(do_pivot(currentPivot, nextPivot));
             currentPivot = nextPivot;
+            gui.setCurrentCameraView(currentPivot.gameObject.name);
+
         }
 
     }
